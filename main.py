@@ -4,10 +4,13 @@ from starlette.websockets import WebSocket, WebSocketDisconnect
 from discussion.discussion import discussion_router
 from messages.messages import messages_router
 from sockets.manager import ConnectionManager
-from users.users import users_router
+from users.users import login_router
+from users.register import register_router
 from contacts.contacts import contacts_router
 app=FastAPI()
-app.include_router(users_router)
+
+app.include_router(register_router)
+app.include_router(login_router)
 app.include_router(contacts_router)
 app.include_router(discussion_router)
 app.include_router(messages_router)
