@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from fastapi import APIRouter
 import json
 from messages.model import Message
@@ -33,8 +35,14 @@ def get_messages(discussion_id:str):
 def messages_post(message_obj:Message):
     all_messages = fake_db.get("messages", {})
     user=fake_db.get("users", {}).get(message_obj.user_id)
-    user_name=user["name"]
-    message={"name":user_name, "value":message_obj.value, "time":message_obj.time}
+    user_name=user.get("name","")
+    message = {
+        "message_id":str(uuid4()),
+        "user_id":message_obj.user_id,
+        "name": user_name,
+        "value":message_obj.value,
+        "time":message_obj.time
+        }
     if message_obj.discussion_id not in all_messages:
         all_messages[message_obj.discussion_id]=[]
 
