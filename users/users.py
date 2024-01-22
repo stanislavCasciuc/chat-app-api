@@ -12,6 +12,7 @@ login_router = APIRouter()
 @login_router.post("/api/authenticate")
 def authenticate_user(user_data: UserCreate):
    user = get_user_data(user_data)
+   print(user)
    if user==None:
       raise HTTPException(status_code=401, detail="Incorrect username or password")
    return user

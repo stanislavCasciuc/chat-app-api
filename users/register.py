@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
 from storage.fake_db import fake_db
 from users.models import UserCreate
@@ -9,7 +9,7 @@ register_router=APIRouter()
 def register_user(user_data: UserCreate):
    all_users=fake_db.get("users",{}).values()
    for user in all_users:
-      if user_data.name == user.name:
-         return {"detail": "user already register"}
+      if user_data.name == user["name"]:
+         raise HTTPException(status_code=401, detail="User already registered")
    user=create_user(user_data)
    return user

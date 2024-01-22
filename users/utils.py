@@ -5,8 +5,8 @@ from storage.fake_db import fake_db
 def get_user_data(user_data):
     users=fake_db.get("users",{}).values()
     for user in users:
-        name=user.get("name")
-        password = user.get("password")
+        name=user["name"]
+        password = user["password"]
         if password == user_data.password and name == user_data.name:
             return user
     return None
