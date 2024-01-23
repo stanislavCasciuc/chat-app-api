@@ -31,9 +31,9 @@ def get_contact_discussions(user_id):
     for discussion in all_discussions:
         contacts=discussion.get("contacts")
         if user_id in contacts:
-            other_user = get_other_user(contacts, user_id)
-            discussion["name"]=other_user["name"]
-
+            if len(contacts) == 2:
+                other_user = get_other_user(contacts, user_id)
+                discussion["name"]=other_user["name"]
             contact_discussion.append(discussion)
     return contact_discussion
 

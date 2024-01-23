@@ -14,7 +14,7 @@ def get_messages(discussion_id:str):
     all_messages=fake_db.get("messages", {})
     user_messages=all_messages.get(discussion_id)
     if not user_messages:
-        return
+        return  []
     return user_messages
 
 # @messages_router.post("/api/messages", response_model=Message )
